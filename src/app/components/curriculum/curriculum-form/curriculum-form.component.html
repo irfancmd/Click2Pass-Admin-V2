@@ -1,0 +1,31 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h5>Add Page</h5>
+        </div> -->
+        <div class="card-body tab2-card">
+            <form [formGroup]="curriculumForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="curriculumName" class="form-label">Curriculum Name</label>
+                        <input formControlName="name" id="curriculumName" class="form-control" type="text"
+                            placeholder="Curriculum Name" required />
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="curriculumDescription" class="form-label">Curriculum Description</label>
+                        <input formControlName="description" id="curriculumDescription" class="form-control" type="text"
+                            placeholder="Curriculum Description" />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

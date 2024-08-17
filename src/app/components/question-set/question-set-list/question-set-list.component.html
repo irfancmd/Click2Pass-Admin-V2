@@ -1,0 +1,53 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <!-- <div class="card-header">
+
+                </div> -->
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SL</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Curriculum</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Question ID(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let questionSet of questionSets; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                        <button class="btn btn-warning m-1" (click)="onClickEdit(questionSet.id)">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-primary m-1" (click)="onClickDelete(questionSet.id)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                    <td>{{ questionSet.name }}</td>
+                                    <td>{{ questionSet.curriculum?.name ?? "N/A" }}</td>
+                                    <td>{{ questionSet.description ?? "N/A" }}</td>
+                                    <td>
+                                        <span *ngFor="let question of questionSet.questions">
+                                            |<a routerLink="/pages/questions/{{ question.id }}">{{
+                                                question.id
+                                                }}</a>|
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

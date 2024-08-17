@@ -1,0 +1,39 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5>Page Details</h5>
+                </div> -->
+                <div *ngIf="question" class="card-body">
+                    <div class="row">
+                        <h5>{{ question.questionText }}</h5>
+                    </div>
+                    <div *ngIf="question.questionMediaUrl" class="row">
+                        <img src="{{ IMG_ROOT + question.questionMediaUrl }}" style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="question.answerOption1Text" class="row">
+                        (a)&nbsp;{{ question.answerOption1Text }}
+                    </div>
+                    <div *ngIf="question.answerOption2Text" class="row">
+                        (b)&nbsp;{{ question.answerOption2Text }}
+                    </div>
+                    <div *ngIf="question.answerOption3Text" class="row">
+                        (c)&nbsp;{{ question.answerOption3Text }}
+                    </div>
+                    <div *ngIf="question.answerOption4Text" class="row">
+                        (d)&nbsp;{{ question.answerOption4Text }}
+                    </div>
+                    <div *ngIf="question.answerOption5Text" class="row">
+                        (e)&nbsp;{{ question.answerOption5Text }}
+                    </div>
+                    <div *ngIf="question.answerOption6Text" class="row">
+                        (f)&nbsp;{{ question.answerOption6Text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

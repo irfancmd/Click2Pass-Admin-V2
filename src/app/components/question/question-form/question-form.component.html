@@ -1,0 +1,421 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Create a question</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row" [hidden]="this.questionForm.controls.curriculumId.value <= '1'">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input [(ngModel)]="hasQuestionMedia" class="form-check-input" type="checkbox"
+                                    id="chk-qmedia">
+                                <label class="form-check-label" for="chk-qmedia">
+                                    Question with media
+                                </label>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4">
+            <nb-checkbox status="primary" [(ngModel)]="isMultipleChoice"
+              >Is multiple choice</nb-checkbox
+            >
+          </div> -->
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input [(ngModel)]="hasAnswerWithMedia" class="form-check-input" type="checkbox"
+                                    id="chk-cmedia">
+                                <label class="form-check-label" for="chk-cmedia">
+                                    Choice with media
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="mt-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="curriculumId" class="form-label">Curriculum</label>
+                                <select id="curriculumId" class="form-select" formControlName="curriculumId">
+                                    <option *ngFor="let selectItem of curriculumSelectItems" [value]="selectItem.value">
+                                        {{ selectItem.text }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="categoryId" class="form-label">Chapter</label>
+                                <select id="categoryId" class="form-select" formControlName="chapterId">
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let selectItem of categorySelectItemsViewable"
+                                        [value]="selectItem.value">{{ selectItem.text }}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="lessonId" class="form-label">Lesson</label>
+                                <select id="lessonId" class="form-select" formControlName="lessonId">
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let selectItem of lessonSelectItems" [value]="selectItem.value">{{
+                                        selectItem.text }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="question-section">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="questionText" class="form-label">Question Text</label>
+                                    <input formControlName="questionText" id="questionText" class="form-control"
+                                        type="text" placeholder="Question Text" required />
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="hasQuestionMedia">
+                                <div class="form-group col-9">
+                                    <label for="questionmediaUrl" class="form-label">Question Media File</label>
+                                    <input id="questionMediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'questionMediaUrl')"
+                                        placeholder="Question Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="isMultipleChoice">
+                                <div class="form-group col-12">
+                                    <label for="numberOfOptionsVisible" class="form-label">Number of Visible
+                                        Options</label>
+                                    <input id="numberOfOptionsVisible" class="form-control"
+                                        formControlName="numberOfOptionsVisible" type="number" min="2" max="6"
+                                        placeholder="Number of Options Visible" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="answer-section">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="answerOption1Text" class="form-label">{{
+                                        isMultipleChoice ? "Answer Option 1 Text" : "Answer Text"
+                                        }}</label>
+                                    <input formControlName="answerOption1Text" id="answerOption1Text"
+                                        class="form-control" type="text" placeholder="{{
+                    isMultipleChoice ? 'Answer Option 1 Text' : 'Answer Text'
+                  }}" required />
+                                </div>
+                            </div>
+                            <div class="row mt-3" *ngIf="isMultipleChoice && hasAnswerWithMedia">
+                                <div class="form-group col-9">
+                                    <label for="answerOption1MediaUrl" class="form-label">Answer Option 1 Media
+                                        File</label>
+                                    <input id="answerOption1MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption1MediaUrl')"
+                                        placeholder="Answer Option 1 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="isMultipleChoice">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input formControlName="isAnswer1Correct" class="form-check-input"
+                                            type="checkbox" id="chk-ac1">
+                                        <label class="form-check-label" for="chk-ac1">
+                                            Correct
+                                            Answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3" *ngIf="isMultipleChoice">
+                                <div class="form-group col-12">
+                                    <label for="answerOption2Text" class="form-label">
+                                        Answer Option 2 Text
+                                    </label>
+                                    <input formControlName="answerOption2Text" id="answerOption2Text"
+                                        class="form-control" type="text" placeholder="Answer Option 2 Text" required />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="isMultipleChoice && hasAnswerWithMedia">
+                                <div class="form-group col-9">
+                                    <label for="answerOption2MediaUrl" class="form-label">Answer Option 2 Media
+                                        File</label>
+                                    <input id="answerOption2MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption2MediaUrl')"
+                                        placeholder="Answer Option 2 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="isMultipleChoice">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input formControlName="isAnswer2Correct" class="form-check-input"
+                                            type="checkbox" id="chk-ac2">
+                                        <label class="form-check-label" for="chk-ac2">
+                                            Correct
+                                            Answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 2
+              ">
+                                <div class="form-group col-12">
+                                    <label for="answerOption3Text" class="form-label">
+                                        Answer Option 3 Text
+                                    </label>
+                                    <input formControlName="answerOption3Text" id="answerOption3Text"
+                                        class="form-control" type="text" placeholder="Answer Option 3 Text" required />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="
+                isMultipleChoice &&
+                hasAnswerWithMedia &&
+                questionForm.controls.numberOfOptionsVisible.value > 2
+              ">
+                                <div class="form-group col-9">
+                                    <label for="answerOption3MediaUrl" class="form-label">Answer Option 3 Media
+                                        File</label>
+                                    <input id="answerOption3MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption3MediaUrl')"
+                                        placeholder="Answer Option 3 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 2
+              ">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input formControlName="isAnswer3Correct" class="form-check-input"
+                                            type="checkbox" id="chk-ac3">
+                                        <label class="form-check-label" for="chk-ac3">
+                                            Correct
+                                            Answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 3
+              ">
+                                <div class="form-group col-12">
+                                    <label for="answerOption4Text" class="form-label">
+                                        Answer Option 4 Text
+                                    </label>
+                                    <input formControlName="answerOption4Text" id="answerOption4Text"
+                                        class="form-control" type="text" placeholder="Answer Option 4 Text" required />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="
+                isMultipleChoice &&
+                hasAnswerWithMedia &&
+                questionForm.controls.numberOfOptionsVisible.value > 3
+              ">
+                                <div class="form-group col-9">
+                                    <label for="answerOption4MediaUrl" class="form-label">Answer Option 4 Media
+                                        File</label>
+                                    <input id="answerOption4MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption4MediaUrl')"
+                                        placeholder="Answer Option 4 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 3
+              ">
+              <div class="col-12">
+                                <div class="form-check">
+                                    <input formControlName="isAnswer4Correct" class="form-check-input" type="checkbox"
+                                        id="chk-ac4">
+                                    <label class="form-check-label" for="chk-ac4">
+                                        Correct
+                                        Answer
+                                    </label>
+                                </div>
+                            </div></div>
+
+                            <div class="row mt-3" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 4
+              ">
+                                <div class="form-group col-12">
+                                    <label for="answerOption5Text" class="form-label">
+                                        Answer Option 5 Text
+                                    </label>
+                                    <input formControlName="answerOption5Text" id="answerOption5Text"
+                                        class="form-control" type="text" placeholder="Answer Option 5 Text" required />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="
+                isMultipleChoice &&
+                hasAnswerWithMedia &&
+                questionForm.controls.numberOfOptionsVisible.value > 4
+              ">
+                                <div class="form-group col-9">
+                                    <label for="answerOption5MediaUrl" class="form-label">Answer Option 5 Media
+                                        File</label>
+                                    <input id="answerOption5MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption5MediaUrl')"
+                                        placeholder="Answer Option 5 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 4
+              "><div class="col-12">
+                                <div class="form-check">
+                                    <input formControlName="isAnswer5Correct" class="form-check-input" type="checkbox"
+                                        id="chk-ac5">
+                                    <label class="form-check-label" for="chk-ac5">
+                                        Correct
+                                        Answer
+                                    </label>
+                                </div>
+                            </div>
+</div>
+                            <div class="row mt-3" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 5
+              ">
+                                <div class="form-group col-12">
+                                    <label for="answerOption6Text" class="form-label">
+                                        Answer Option 6 Text
+                                    </label>
+                                    <input formControlName="answerOption6Text" id="answerOption6Text"
+                                        class="form-control" type="text" placeholder="Answer Option 6 Text" required />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="
+                isMultipleChoice &&
+                hasAnswerWithMedia &&
+                questionForm.controls.numberOfOptionsVisible.value > 5
+              ">
+                                <div class="form-group col-9">
+                                    <label for="answerOption6MediaUrl" class="form-label">Answer Option 6 Media
+                                        File</label>
+                                    <input id="answerOption6MediaUrl" class="form-control" type="file"
+                                        (change)="onFileChange($event, 'answerOption6MediaUrl')"
+                                        placeholder="Answer Option 6 Media File" />
+                                </div>
+                            </div>
+                            <div class="row mt-1" *ngIf="
+                isMultipleChoice &&
+                questionForm.controls.numberOfOptionsVisible.value > 5
+              ">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input formControlName="isAnswer6Correct" class="form-check-input"
+                                            type="checkbox" id="chk-ac6">
+                                        <label class="form-check-label" for="chk-ac6">
+                                            Correct
+                                            Answer
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Preview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <h5>{{ previewQuestionText }}</h5>
+                    </div>
+                    <div *ngIf="hasQuestionMedia && previewMediaUrl" class="row">
+                        <img [src]="previewMediaUrl" alt="Question media" style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption1Text" class="row">
+                        (a)&nbsp;{{ previewAnswerOption1Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption1MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption1MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption2Text" class="row">
+                        (b)&nbsp;{{ previewAnswerOption2Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption2MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption2MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption3Text" class="row">
+                        (c)&nbsp;{{ previewAnswerOption3Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption3MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption3MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption4Text" class="row">
+                        (d)&nbsp;{{ previewAnswerOption4Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption4MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption4MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption5Text" class="row">
+                        (e)&nbsp;{{ previewAnswerOption5Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption5MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption5MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                    <div *ngIf="isMultipleChoice && previewAnswerOption6Text" class="row">
+                        (f)&nbsp;{{ previewAnswerOption6Text }}
+                    </div>
+                    <div *ngIf="
+            isMultipleChoice &&
+            previewAnswerOption1Text &&
+            hasAnswerWithMedia &&
+            previewAnswerOption6MediaUrl
+          " class="row">
+                        <img [src]="previewAnswerOption6MediaUrl" alt="Question media"
+                            style="width: 300px; height: auto" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Container-fluid Ends-->

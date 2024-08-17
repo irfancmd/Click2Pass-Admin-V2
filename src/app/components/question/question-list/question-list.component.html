@@ -1,0 +1,152 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+                        <div class="row px-3">
+                            <div class="form-group col-3">
+                                <label for="curriculumId" class="form-label">Curriculum</label>
+                                <select id="curriculumId" class="form-select" formControlName="curriculumId">
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let selectItem of curriculumSelectItems" [value]="selectItem.value">
+                                        {{ selectItem.text }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="chapterId" class="form-label">Chapter</label>
+                                <select id="chapterId" class="form-select" formControlName="chapterId">
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let selectItem of chapterSelectItemsViewable"
+                                        [value]="selectItem.value">{{ selectItem.text }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="search" class="form-label">Search</label>
+                                <input id="search" class="form-control" type="text" placeholder="Search"
+                                    formControlName="searchText" />
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                <button class="btn btn-primary" type="submit">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SL</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Question</th>
+                                    <th scope="col">Curriculum</th>
+                                    <th scope="col">Chapter</th>
+                                    <th scope="col">Lesson</th>
+                                    <th scope="col">Question Media URL</th>
+                                    <th scope="col">QuestionType</th>
+                                    <th scope="col">Number of Visible Options</th>
+                                    <th scope="col">Correct Answer Option(s)</th>
+                                    <th scope="col">Answer Option 1</th>
+                                    <th scope="col">Option 1 Media</th>
+                                    <th scope="col">Answer Option 2</th>
+                                    <th scope="col">Option 2 Media</th>
+                                    <th scope="col">Answer Option 3</th>
+                                    <th scope="col">Option 3 Media</th>
+                                    <th scope="col">Answer Option 4</th>
+                                    <th scope="col">Option 4 Media</th>
+                                    <th scope="col">Answer Option 5</th>
+                                    <th scope="col">Option 5 Media</th>
+                                    <th scope="col">Answer Option 6</th>
+                                    <th scope="col">Option 6 Media</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let question of questions; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ question.id }}</td>
+                                    <td>
+                                        <button class="btn btn-warning m-1" (click)="onClickEdit(question.id)">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-primary m-1" (click)="onClickDelete(question.id)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                    <td>{{ question.questionText }}</td>
+                                    <td>
+                                        {{ question.curriculum ? question.curriculum.name : "N/A" }}
+                                    </td>
+                                    <td>{{ question.chapter ? question.chapter.name : "N/A" }}</td>
+                                    <td>{{ question.lesson ? question.lesson.name : "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.questionMediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.questionMediaUrl }}" class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ getQuestionType(question) }}</td>
+                                    <td>{{ question.numberOfOptionsVisible ?? "N/A" }}</td>
+                                    <td>{{ question.correctAnswerText }}</td>
+                                    <td>{{ question.answerOption1Text }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption1MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption1MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ question.answerOption2Text ?? "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption2MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption2MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ question.answerOption3Text ?? "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption3MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption3MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ question.answerOption4Text ?? "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption4MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption4MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ question.answerOption5Text ?? "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption5MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption5MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                    <td>{{ question.answerOption6Text ?? "N/A" }}</td>
+                                    <td>
+                                        <div *ngIf="question.answerOption6MediaUrl; else elseBlock">
+                                            <img src="{{ IMG_ROOT + question.answerOption6MediaUrl }}"
+                                                class="table-image" />
+                                        </div>
+                                        <ng-template #elseBlock>N/A</ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

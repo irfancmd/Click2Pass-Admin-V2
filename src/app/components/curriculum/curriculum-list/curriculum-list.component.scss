@@ -1,0 +1,18 @@
+.table-container {
+  max-height: 62vh;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+thead {
+  th {
+    position: sticky;
+    top: 0;
+    background-color: darken(white, 20);
+    border-bottom: 1px solid black;
+  }
+}
+
+td {
+  background-color: white;
+}

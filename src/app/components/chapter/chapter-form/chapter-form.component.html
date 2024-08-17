@@ -1,0 +1,41 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h5>Add Page</h5>
+        </div> -->
+        <div class="card-body tab2-card">
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-4 form-group">
+                        <label for="categoryName" class="form-label">Chapter Name</label>
+                        <input formControlName="name" id="categoryName" class="form-control" type="text"
+                            placeholder="Chapter Name" required />
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="categoryDescription" class="form-label">Chapter Description</label>
+                        <input formControlName="description" id="categoryDescription" class="form-control" type="text"
+                            placeholder="Chapter Description" />
+                    </div>
+                    <div class="col-4">
+                        <label for="curriculumId" class="form-label">Curriculum</label>
+                        <select id="curriculumId" class="form-select" formControlName="curriculumId">
+                            <option value="0">Select Curriculum</option>
+                            <option *ngFor="let selectItem of curriculumSelectItems" [value]="selectItem.value">{{
+                                selectItem.text }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

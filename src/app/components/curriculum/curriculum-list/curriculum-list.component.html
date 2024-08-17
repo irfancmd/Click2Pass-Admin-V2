@@ -1,0 +1,53 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-4">
+                            <form [formGroup]="searchForm">
+                                <label for="search" class="form-label">Search</label>
+                                <input id="search" class="form-control" type="text" placeholder="Search"
+                                    formControlName="searchText" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SL</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let curriculum of curriculums; index as i">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ curriculum.name }}</td>
+                                    <td>{{ curriculum.description ?? "N/A" }}</td>
+                                    <td>
+                                        <button class="btn btn-warning m-1"
+                                            (click)="onClickEdit(curriculum.id)">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-primary m-1"
+                                            (click)="onClickDelete(curriculum.id)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

@@ -1,0 +1,199 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-header">
+        </div> -->
+        <div class="card-body tab2-card">
+            <form [formGroup]="questionSetForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <label for="name" class="form-label">Question Set Name</label>
+                        <input formControlName="name" id="name" class="form-control" type="text"
+                            placeholder="Question Set Name" required />
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="description" class="form-label">Question Set Description</label>
+                        <input formControlName="description" id="description" class="form-control" type="text"
+                            placeholder="Question Set Description" fullWidth />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 form-group">
+                        <label for="curriculumId" class="form-label">Curriculum</label>
+                        <select id="curriculumId" class="form-select" formControlName="curriculumId">
+                            <option value="0">Select</option>
+                            <option *ngFor="let selectItem of curriculumSelectItems" [value]="selectItem.value">{{
+                                selectItem.text }}</option>
+                        </select>
+                    </div>
+                    <div class="col-4 form-group" *ngIf="questionSetForm.controls.curriculumId.value == '5'">
+                        <label for="drivingSetType" class="form-label">Driving Set Type</label>
+                        <select id="drivingSetType" class="form-select" formControlName="drivingSetType">
+                            <option [value]="0">None</option>
+                            <option [value]="1">Questions of Road Signs</option>
+                            <option [value]="2">Questions of Rules of the Road</option>
+                        </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="numOfQuestions" class="form-label">Number of Questions</label>
+                        <input formControlName="numOfQuestions" id="numOfQuestions" class="form-control" type="number"
+                            min="0" max="100" placeholder="Number of Questions" />
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h3>Questions</h3>
+
+                        <form class="my-3" [formGroup]="questionSearch" (ngSubmit)="onSearch()">
+                            <div class="row px-3">
+                                <div class="form-group col-7">
+                                    <label for="search" class="form-label">Search</label>
+                                    <input id="search" class="form-control" type="text" placeholder="Search"
+                                        formControlName="searchText" />
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="chapterId" class="form-label">Chapter</label>
+                                    <select id="chapterId" class="form-select" formControlName="chapterId">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let selectItem of chapterSelectItemsViewable"
+                                            [value]="selectItem.value">{{ selectItem.text }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-2 d-flex align-items-end">
+                                    <button class="btn btn-primary" type="submit">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="table-container">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sl</th>
+                                        <th scope="col">Select</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Question</th>
+                                        <th scope="col">Curriculum</th>
+                                        <th scope="col">Chapter</th>
+                                        <th scope="col">Lesson</th>
+                                        <th scope="col">Question Media URL</th>
+                                        <th scope="col">QuestionType</th>
+                                        <th scope="col">Number of Visible Options</th>
+                                        <th scope="col">Correct Answer Option(s)</th>
+                                        <th scope="col">Answer Option 1</th>
+                                        <th scope="col">Option 1 Media</th>
+                                        <th scope="col">Answer Option 2</th>
+                                        <th scope="col">Option 2 Media</th>
+                                        <th scope="col">Answer Option 3</th>
+                                        <th scope="col">Option 3 Media</th>
+                                        <th scope="col">Answer Option 4</th>
+                                        <th scope="col">Option 4 Media</th>
+                                        <th scope="col">Answer Option 5</th>
+                                        <th scope="col">Option 5 Media</th>
+                                        <th scope="col">Answer Option 6</th>
+                                        <th scope="col">Option 6 Media</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let question of questions; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    [checked]="isQuestionSelected(question.id)"
+                                                    (change)="onChangeCheckBox($event, question.id)">
+                                            </div>
+                                        </td>
+                                        <td>{{ question.id }}</td>
+                                        <td>{{ question.questionText }}</td>
+                                        <td>{{ question.curriculum?.name ?? "N/A" }}</td>
+                                        <td>{{ question.chapter?.name ?? "N/A" }}</td>
+                                        <td>{{ question.lesson?.name ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.questionMediaUrl; else elseBlock">
+                                                <img alt="{{ question.questionText }}"
+                                                    src="{{ IMG_ROOT + question.questionMediaUrl }}"
+                                                    class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ getQuestionType(question) }}</td>
+                                        <td>{{ question.numberOfOptionsVisible ?? "N/A" }}</td>
+                                        <td>{{ question.correctAnswerText }}</td>
+                                        <td>{{ question.answerOption1Text }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption1MediaUrl; else elseBlock">
+                                                <img alt="{{ question.answerOption1Text }}" src="{{
+                              IMG_ROOT + question.answerOption1MediaUrl
+                            }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ question.answerOption2Text ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption2MediaUrl; else elseBlock">
+                                                <img src="{{
+                              IMG_ROOT + question.answerOption2MediaUrl
+                            }}" alt="{{ question.answerOption2Text }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ question.answerOption3Text ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption3MediaUrl; else elseBlock">
+                                                <img alt="{{ question.answerOption3Text }}" src="{{
+                              IMG_ROOT + question.answerOption3MediaUrl
+                            }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ question.answerOption4Text ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption4MediaUrl; else elseBlock">
+                                                <img alt="{{ question.answerOption4Text }}" src="{{
+                              IMG_ROOT + question.answerOption4MediaUrl
+                            }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ question.answerOption5Text ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption5MediaUrl; else elseBlock">
+                                                <img alt="{{ question.answerOption5Text }}" src="{{
+                              IMG_ROOT + question.answerOption5MediaUrl
+                            }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                        <td>{{ question.answerOption6Text ?? "N/A" }}</td>
+                                        <td>
+                                            <div *ngIf="question.answerOption6MediaUrl; else elseBlock">
+                                                <img alt="{{ question.answerOption6Text }}" src="{{
+                              IMG_ROOT + question.answerOption6MediaUrl
+                            }}" class="table-image" />
+                                            </div>
+                                            <ng-template #elseBlock>N/A</ng-template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
