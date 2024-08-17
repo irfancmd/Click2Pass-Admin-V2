@@ -15,34 +15,28 @@
                                 <h4>Account Details</h4>
                                 <div class="form-group row">
                                     <div class="col-xl-3 col-md-4"><label for="validationCustom0"><span>*</span>
-                                        First Name</label></div>
-                                    <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom0"
-                                        type="text" required=""></div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> Last
                                         Name</label></div>
-                                    <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom1"
-                                        type="text" required=""></div>
+                                    <div class="col-xl-8 col-md-7"><input formControlName="name" class="form-control" id="validationCustom0"
+                                        type="text" required></div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-xl-3 col-md-4"><label for="validationCustom2"><span>*</span>
                                         Email</label></div>
-                                    <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom2"
-                                        type="text" required=""></div>
+                                    <div class="col-xl-8 col-md-7"><input formControlName="email" class="form-control" id="validationCustom2"
+                                        type="email" required></div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-xl-3 col-md-4"><label for="validationCustom3"><span>*</span>
                                         Password</label>
                                     </div>
-                                    <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom3"
-                                        type="password" required=""></div>
+                                    <div class="col-xl-8 col-md-7"><input formControlName="password" class="form-control" id="validationCustom3"
+                                        type="password" required></div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-xl-3 col-md-4"><label for="validationCustom4"><span>*</span>
                                         Confirm Password</label></div>
-                                    <div class="col-xl-8 col-md-7"><input class="form-control" id="validationCustom4"
-                                        type="password" required=""></div>
+                                    <div class="col-xl-8 col-md-7"><input formControlName="confirmPassword" class="form-control" id="validationCustom4"
+                                        type="password" required></div>
                                 </div>
                             </form>
                           </ng-template>
@@ -50,32 +44,32 @@
                         <li [ngbNavItem]="2">
                           <a ngbNavLink>Permission</a>
                           <ng-template ngbNavContent>
-                            <form [formGroup]="permissionForm"
+                            <form [formGroup]="accountForm"
                             class="needs-validation user-add" novalidate="">
                             <div class="permission-block">
                                 <div class="attribute-blocks">
-                                    <h5 class="f-w-600 mb-3">Product Related permission </h5>
+                                    <h5 class="f-w-600 mb-3">Curriculum Related permission </h5>
                                     <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
-                                            <label>Add Product</label>
+                                            <label>View Curriculum</label>
                                         </div>
                                         <div class="col-xl-9 col-sm-8">
                                             <div
                                                 class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                 <label class="d-block" for="edo-ani1">
-                                                    <input class="radio_animated" id="edo-ani1" type="radio"
-                                                        name="rdo-ani">
+                                                    <input formControlName="readCurriculum" class="radio_animated" id="edo-ani1" type="radio" [value]="1"
+                                                        >
                                                     Allow
                                                 </label>
                                                 <label class="d-block" for="edo-ani2">
-                                                    <input class="radio_animated" id="edo-ani2" type="radio"
-                                                        name="rdo-ani" checked="">
+                                                    <input formControlName="readCurriculum" class="radio_animated" id="edo-ani2" type="radio" [value]="0"
+                                                        >
                                                     Deny
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
                                             <label>Update Product</label>
                                         </div>
@@ -114,8 +108,8 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
+                                    </div> -->
+                                    <!-- <div class="row">
                                         <div class="col-xl-3 col-sm-4">
                                             <label class="mb-0 sm-label-radio">Apply discount</label>
                                         </div>
@@ -134,31 +128,31 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="attribute-blocks">
-                                    <h5 class="f-w-600 mb-3">Category Related permission </h5>
+                                    <h5 class="f-w-600 mb-3">Chapter Related permission </h5>
                                     <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
-                                            <label>Add Category</label>
+                                            <label>View Chapter</label>
                                         </div>
                                         <div class="col-xl-9 col-sm-8">
                                             <div
                                                 class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                 <label class="d-block" for="edo-ani9">
-                                                    <input class="radio_animated" id="edo-ani9" type="radio"
-                                                        name="rdo-ani4">
+                                                    <input formControlName="readChapter" class="radio_animated" id="edo-ani9" type="radio" [value]="1"
+                                                        >
                                                     Allow
                                                 </label>
                                                 <label class="d-block" for="edo-ani10">
-                                                    <input class="radio_animated" id="edo-ani10"
-                                                        type="radio" name="rdo-ani4" checked="">
+                                                    <input formControlName="readChapter" class="radio_animated" id="edo-ani10" [value]="0"
+                                                        type="radio">
                                                     Deny
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
                                             <label>Update Category</label>
                                         </div>
@@ -217,7 +211,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </form>
@@ -226,7 +220,7 @@
                     </ul>
                     <div [ngbNavOutlet]="nav" class="mt-2"></div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button (click)="onSubmit()" type="button" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { Injectable, HostListener, Inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { WINDOW } from "./windows.service";
+import { AuthService } from './auth.service';
 // Menu
 export interface Menu {
 	path?: string;
@@ -19,22 +20,6 @@ export interface Menu {
 })
 
 export class NavService {
-
-	public screenWidth: any
-	public collapseSidebar: boolean = false
-
-	constructor(@Inject(WINDOW) private window) {
-		this.onResize();
-		if (this.screenWidth < 991) {
-			this.collapseSidebar = true
-		}
-	}
-
-	// Windows width
-	@HostListener("window:resize", ['$event'])
-	onResize(event?) {
-		this.screenWidth = window.innerWidth;
-	}
 
 	// MENUITEMS: Menu[] = [
 	// 	{
@@ -123,39 +108,161 @@ export class NavService {
 	// 	}
 	// ]
 
-	MENUITEMS: Menu[] = [
-		{
-			title: 'Question', icon: 'archive', type: 'sub', active: false, children: [
-				{ path: '/question', title: 'Question List', type: 'link' },
-				{ path: '/question/form', title: 'Question Form', type: 'link' },
-			]
-		},
-		{
-			title: 'Curriculum', icon: 'archive', type: 'sub', active: false, children: [
-				{ path: '/curriculum', title: 'Curriculum List', type: 'link' },
-				{ path: '/curriculum/form', title: 'Curriculum Form', type: 'link' },
-			]
-		},
-		{
-			title: 'Chapter', icon: 'archive', type: 'sub', active: false, children: [
-				{ path: '/chapter', title: 'Chapter List', type: 'link' },
-				{ path: '/chapter/form', title: 'Chapter Form', type: 'link' },
-			]
-		},
-		{
-			title: 'Question Set', icon: 'archive', type: 'sub', active: false, children: [
-				{ path: '/question-set', title: 'Question Set List', type: 'link' },
-				{ path: '/question-set/form', title: 'Question Set Form', type: 'link' },
-			]
-		},
-		{
-			title: 'Users', icon: 'user-plus', type: 'sub', active: false, children: [
-				{ path: '/users/list-user', title: 'User List', type: 'link' },
-				{ path: '/users/create-user', title: 'Create User', type: 'link' },
-			]
-		},
-	]
+	public screenWidth: any
+	public collapseSidebar: boolean = false
 
-	// Array
-	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+	MENUITEMS: Menu[] = [];
+
+	public items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+
+	constructor(@Inject(WINDOW) private window, private authService: AuthService) {
+		this.onResize();
+		if (this.screenWidth < 991) {
+			this.collapseSidebar = true
+		}
+
+		this.MENUITEMS = [
+			{
+				title: 'Question', icon: 'archive', type: 'sub', active: false, children: [
+					{ path: '/question', title: 'Question List', type: 'link' },
+					{ path: '/question/form', title: 'Question Form', type: 'link' },
+				]
+			},
+			{
+				title: 'Curriculum', icon: 'archive', type: 'sub', active: false, children: [
+					{ path: '/curriculum', title: 'Curriculum List', type: 'link' },
+					{ path: '/curriculum/form', title: 'Curriculum Form', type: 'link' },
+				]
+			},
+			{
+				title: 'Chapter', icon: 'archive', type: 'sub', active: false, children: [
+					{ path: '/chapter', title: 'Chapter List', type: 'link' },
+					{ path: '/chapter/form', title: 'Chapter Form', type: 'link' },
+				]
+			},
+			{
+				title: 'Question Set', icon: 'archive', type: 'sub', active: false, children: [
+					{ path: '/question-set', title: 'Question Set List', type: 'link' },
+					{ path: '/question-set/form', title: 'Question Set Form', type: 'link' },
+				]
+			},
+			{
+				title: 'Users', icon: 'user-plus', type: 'sub', active: false, children: [
+					{ path: '/users/list-user', title: 'User List', type: 'link' },
+					{ path: '/users/create-user', title: 'Create User', type: 'link' },
+				]
+			},
+		]
+
+	}
+
+	// Windows width
+	@HostListener("window:resize", ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+	}
+
+	populateRoleWiseMenus() {
+		this.MENUITEMS = [];
+
+		let mainMenuIndex: number = 0;
+
+		if (this.authService.currentUser.readCurriculum) {
+			this.MENUITEMS.push(
+				{
+					title: 'Curriculum', icon: 'archive', type: 'sub', active: false, children: [
+						{ path: '/curriculum', title: 'Curriculum List', type: 'link' },
+					]
+				},
+			);
+
+			if (this.authService.currentUser.createCurriculum) {
+				this.MENUITEMS[mainMenuIndex].children.push(
+					{ path: '/curriculum/form', title: 'Curriculum Form', type: 'link' },
+				);
+			}
+
+			++mainMenuIndex;
+		}
+
+		if (this.authService.currentUser.readChapter) {
+			this.MENUITEMS.push(
+				{
+					title: 'Chapter', icon: 'archive', type: 'sub', active: false, children: [
+						{ path: '/chapter', title: 'Chapter List', type: 'link' },
+					]
+				},
+			);
+
+			if (this.authService.currentUser.createChapter) {
+				this.MENUITEMS[mainMenuIndex].children.push(
+					{ path: '/chapter/form', title: 'Chapter Form', type: 'link' },
+				);
+			}
+
+			++mainMenuIndex;
+		}
+
+		// TODO: FIX
+		if (this.authService.currentUser.readQuestion || true) {
+			this.MENUITEMS.push(
+				{
+					title: 'Question', icon: 'archive', type: 'sub', active: false, children: [
+						{ path: '/question', title: 'Question List', type: 'link' },
+					]
+				},
+			);
+
+			if (this.authService.currentUser.createQuestion || true) {
+				this.MENUITEMS[mainMenuIndex].children.push(
+					{ path: '/question/form', title: 'Question Form', type: 'link' },
+				);
+			}
+
+			++mainMenuIndex;
+		}
+
+		// TODO: FIX
+		if (this.authService.currentUser.readQuestionSet || true) {
+			this.MENUITEMS.push(
+				{
+					title: 'Question Set', icon: 'archive', type: 'sub', active: false, children: [
+						{ path: '/question-set', title: 'Question Set List', type: 'link' },
+					]
+				},
+			);
+
+			if (this.authService.currentUser.createQuestionSet || true) {
+				this.MENUITEMS[mainMenuIndex].children.push(
+					{ path: '/question-set/form', title: 'Question Set Form', type: 'link' },
+				);
+			}
+
+			++mainMenuIndex;
+		}
+
+		// TODO: FIX
+		if (this.authService.currentUser.readUser || true) {
+			this.MENUITEMS.push(
+
+				{
+					title: 'Users', icon: 'user-plus', type: 'sub', active: false, children: [
+						{ path: '/users/list-user', title: 'User List', type: 'link' },
+					]
+				},
+			);
+
+			if (this.authService.currentUser.createUser || true) {
+				this.MENUITEMS[mainMenuIndex].children.push(
+					{ path: '/users/create-user', title: 'Create User', type: 'link' },
+				);
+			}
+
+			++mainMenuIndex;
+		}
+
+		// Array
+		this.items.next(this.MENUITEMS);
+	}
+
 }

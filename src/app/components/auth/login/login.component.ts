@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { NavService } from 'src/app/shared/service/nav.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
     dots: false
   };
 
-  constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService) {
+  constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService, private navService: NavService) {
     this.createLoginForm();
     // this.createRegisterForm();
   }
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
         if (res.status === 0) {
           // Success
           this.authService.currentUser = res.data;
+          this.navService.populateRoleWiseMenus();
           
           this.router.navigate(["/dashboard/default"]);
         } else {

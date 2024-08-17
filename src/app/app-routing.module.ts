@@ -5,9 +5,14 @@ import { ContentLayoutComponent } from './shared/layout/content-layout/content-l
 import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard/default',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
-    redirectTo: 'dashboard/default',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   },
   {

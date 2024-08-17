@@ -2,6 +2,7 @@ import { DecimalPipe } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { TableService } from 'src/app/shared/service/table.service';
 import { UserListDB, USERLISTDB } from 'src/app/shared/tables/list-users';
 
@@ -14,14 +15,14 @@ import { UserListDB, USERLISTDB } from 'src/app/shared/tables/list-users';
 export class ListUserComponent implements OnInit {
   public user_list = []
 
-  public tableItem$: Observable<UserListDB[]>;
-  public searchText;
-  total$: Observable<number>;
+  // public tableItem$: Observable<UserListDB[]>;
+  // public searchText;
+  // total$: Observable<number>;
 
-  constructor(public service: TableService) {
-    this.tableItem$ = service.tableItem$;
-    this.total$ = service.total$;
-    this.service.setUserData(USERLISTDB)
+  constructor(public service: TableService, private authService: AuthService) {
+    // this.tableItem$ = service.tableItem$;
+    // this.total$ = service.total$;
+    // this.service.setUserData(USERLISTDB)
   }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -36,10 +37,14 @@ export class ListUserComponent implements OnInit {
 
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
-
   }
 
   ngOnInit() {
+    this.authService.getUsers().subscribe(res => {
+      if(res.data) {
+        this.user_list = res.data;
+      }
+    })
   }
 
 }
