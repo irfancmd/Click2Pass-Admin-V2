@@ -143,15 +143,15 @@
                                     <form [formGroup]="loginForm" 
                                         class="form-horizontal auth-form" novalidate="">
                                         <div class="form-group">
-                                            <input required="" name="login[username]" type="email"
-                                                class="form-control" placeholder="Username"
+                                            <input required formControlName="email" type="email"
+                                                class="form-control" placeholder="E-Mail"
                                                 id="exampleInputEmail1">
                                         </div>
                                         <div class="form-group">
-                                            <input required="" name="login[password]" type="password"
+                                            <input required formControlName="password" type="password"
                                                 class="form-control" placeholder="Password">
                                         </div>
-                                        <div class="form-terms">
+                                        <!-- <div class="form-terms">
                                             <div class="custom-control custom-checkbox d-flex align-items-center flex-wrap">
                                                 <input type="checkbox" class="custom-control-input me-2"
                                                     id="customControlAutosizing">
@@ -160,11 +160,11 @@
                                                 <a href="javascript:void(0)"
                                                     class="btn btn-default forgot-pass ms-auto">Forgot password</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-button">
-                                            <a [routerLink]="'/dashboard/default'"> <button class="btn btn-primary" type="submit"> Login</button></a>
+                                            <a (click)="onSubmit()"> <button class="btn btn-primary" type="submit">Login</button></a>
                                         </div>
-                                        <div class="form-footer">
+                                        <!-- <div class="form-footer">
                                             <span>Or Login up with social platforms</span>
                                             <ul class="social">
                                                 <li><a class="icon-facebook" href="javascript:void(0)"></a></li>
@@ -174,19 +174,19 @@
                                                 <li><a class="icon-pinterest" href="javascript:void(0)"></a>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                                   </ng-template>
                                 </li>
-                                <li [ngbNavItem]="2">
+                                <!-- <li [ngbNavItem]="2">
                                   <a ngbNavLink>Register</a>
                                   <ng-template ngbNavContent>
                                     <form [formGroup]="registerForm" 
                                     class="form-horizontal auth-form" novalidate>
                                     <div class="form-group">
-                                        <input required="" name="login[username]" type="email"
-                                            class="form-control" placeholder="Username"
+                                        <input required="" name="login[email]" type="email"
+                                            class="form-control" placeholder="E-Mail"
                                             id="exampleInputEmail12">
                                     </div>
                                     <div class="form-group">
@@ -222,17 +222,17 @@
                                     </div>
                                 </form>
                                   </ng-template>
-                                </li>
+                                </li> -->
                               </ul>
                               <div [ngbNavOutlet]="nav" class="mt-2"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <a [routerLink]="'/dashboard/default'" class="btn btn-primary back-btn">
+            <!-- <a [routerLink]="'/dashboard/default'" class="btn btn-primary back-btn">
                 <app-feather-icons [icon]="'arrow-left'"></app-feather-icons>
                 back
-            </a>
+            </a> -->
         </div>
     </div>
 </div>

@@ -23,6 +23,8 @@ import { ReportsModule } from './components/reports/reports.module';
 import { AuthModule } from './components/auth/auth.module';
 import { provideHttpClient } from '@angular/common/http';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,10 @@ import { provideHttpClient } from '@angular/common/http';
     MediaModule,
     MenusModule,
     UsersModule,
-    AgGridModule
+    AgGridModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+    })
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
