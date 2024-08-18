@@ -19,7 +19,7 @@ export class ListUserComponent implements OnInit {
   // public searchText;
   // total$: Observable<number>;
 
-  constructor(public service: TableService, private authService: AuthService) {
+  constructor(public service: TableService, public authService: AuthService) {
     // this.tableItem$ = service.tableItem$;
     // this.total$ = service.total$;
     // this.service.setUserData(USERLISTDB)

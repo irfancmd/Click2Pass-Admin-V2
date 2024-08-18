@@ -203,8 +203,7 @@ export class NavService {
 			++mainMenuIndex;
 		}
 
-		// TODO: FIX
-		if (this.authService.currentUser.readQuestion || true) {
+		if (this.authService.currentUser.readQuestion) {
 			this.MENUITEMS.push(
 				{
 					title: 'Question', icon: 'archive', type: 'sub', active: false, children: [
@@ -213,7 +212,7 @@ export class NavService {
 				},
 			);
 
-			if (this.authService.currentUser.createQuestion || true) {
+			if (this.authService.currentUser.createQuestion) {
 				this.MENUITEMS[mainMenuIndex].children.push(
 					{ path: '/question/form', title: 'Question Form', type: 'link' },
 				);
@@ -222,8 +221,7 @@ export class NavService {
 			++mainMenuIndex;
 		}
 
-		// TODO: FIX
-		if (this.authService.currentUser.readQuestionSet || true) {
+		if (this.authService.currentUser.readQuestionSet) {
 			this.MENUITEMS.push(
 				{
 					title: 'Question Set', icon: 'archive', type: 'sub', active: false, children: [
@@ -232,7 +230,7 @@ export class NavService {
 				},
 			);
 
-			if (this.authService.currentUser.createQuestionSet || true) {
+			if (this.authService.currentUser.createQuestionSet) {
 				this.MENUITEMS[mainMenuIndex].children.push(
 					{ path: '/question-set/form', title: 'Question Set Form', type: 'link' },
 				);
@@ -241,8 +239,7 @@ export class NavService {
 			++mainMenuIndex;
 		}
 
-		// TODO: FIX
-		if (this.authService.currentUser.readUser || true) {
+		if (this.authService.currentUser.readUser) {
 			this.MENUITEMS.push(
 
 				{
@@ -252,7 +249,7 @@ export class NavService {
 				},
 			);
 
-			if (this.authService.currentUser.createUser || true) {
+			if (this.authService.currentUser.createUser) {
 				this.MENUITEMS[mainMenuIndex].children.push(
 					{ path: '/users/create-user', title: 'Create User', type: 'link' },
 				);

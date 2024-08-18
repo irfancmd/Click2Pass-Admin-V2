@@ -22,7 +22,7 @@
                                     <th scope="col">SL</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col">Action</th>
+                                    <th *ngIf="authService.currentUser?.createCurriculum === 1" scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,7 +30,7 @@
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ curriculum.name }}</td>
                                     <td>{{ curriculum.description ?? "N/A" }}</td>
-                                    <td>
+                                    <td *ngIf="authService.currentUser?.createCurriculum === 1">
                                         <button class="btn btn-warning m-1"
                                             (click)="onClickEdit(curriculum.id)">
                                             Edit

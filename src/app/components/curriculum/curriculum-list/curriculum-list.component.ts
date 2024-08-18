@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { CurriculumService } from 'src/app/shared/service/curriculum.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class CurriculumListComponent implements OnInit {
 
   constructor(
     private curriculumService: CurriculumService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

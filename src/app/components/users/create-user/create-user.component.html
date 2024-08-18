@@ -69,27 +69,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="row mb-3">
+                                    <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
-                                            <label>Update Product</label>
+                                            <label>Modify Curriculum</label>
                                         </div>
                                         <div class="col-xl-9 col-sm-8">
                                             <div
                                                 class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
                                                 <label class="d-block" for="edo-ani3">
-                                                    <input class="radio_animated" id="edo-ani3" type="radio"
-                                                        name="rdo-ani1">
+                                                    <input formControlName="createCurriculum" class="radio_animated" id="edo-ani3" type="radio" [value]="1"
+                                                        >
                                                     Allow
                                                 </label>
                                                 <label class="d-block" for="edo-ani4">
-                                                    <input class="radio_animated" id="edo-ani4" type="radio"
-                                                        name="rdo-ani1" checked="">
+                                                    <input formControlName="createCurriculum" class="radio_animated" id="edo-ani4" type="radio" [value]="0"
+                                                        >
                                                     Deny
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <div class="col-xl-3 col-sm-4">
                                             <label>Delete Product</label>
                                         </div>
@@ -146,6 +146,26 @@
                                                 </label>
                                                 <label class="d-block" for="edo-ani10">
                                                     <input formControlName="readChapter" class="radio_animated" id="edo-ani10" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>Modify Chapter</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani11">
+                                                    <input formControlName="createChapter" class="radio_animated" id="edo-ani11" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani12">
+                                                    <input formControlName="createChapter" class="radio_animated" id="edo-ani12" [value]="0"
                                                         type="radio">
                                                     Deny
                                                 </label>
@@ -212,6 +232,135 @@
                                             </div>
                                         </div>
                                     </div> -->
+                                </div>
+                                <div class="attribute-blocks">
+                                    <h5 class="f-w-600 mb-3">Question Related permission </h5>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>View Question</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani13">
+                                                    <input formControlName="readQuestion" class="radio_animated" id="edo-ani13" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani14">
+                                                    <input formControlName="readQuestion" class="radio_animated" id="edo-ani14" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>Modify Chapter</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani15">
+                                                    <input formControlName="createQuestion" class="radio_animated" id="edo-ani15" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani16">
+                                                    <input formControlName="createQuestion" class="radio_animated" id="edo-ani16" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="attribute-blocks">
+                                    <h5 class="f-w-600 mb-3">Question Set Related permission </h5>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>View Question Set</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani17">
+                                                    <input formControlName="readQuestionSet" class="radio_animated" id="edo-ani17" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani18">
+                                                    <input formControlName="readQuestionSet" class="radio_animated" id="edo-ani18" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>Modify Question Set</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani19">
+                                                    <input formControlName="createQuestionSet" class="radio_animated" id="edo-ani19" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani20">
+                                                    <input formControlName="createQuestionSet" class="radio_animated" id="edo-ani20" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="attribute-blocks">
+                                    <h5 class="f-w-600 mb-3">User Related permission </h5>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>View Users</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani21">
+                                                    <input formControlName="readUser" class="radio_animated" id="edo-ani21" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani22">
+                                                    <input formControlName="readUser" class="radio_animated" id="edo-ani22" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-xl-3 col-sm-4">
+                                            <label>Modify Users</label>
+                                        </div>
+                                        <div class="col-xl-9 col-sm-8">
+                                            <div
+                                                class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                <label class="d-block" for="edo-ani23">
+                                                    <input formControlName="createUser" class="radio_animated" id="edo-ani23" type="radio" [value]="1"
+                                                        >
+                                                    Allow
+                                                </label>
+                                                <label class="d-block" for="edo-ani24">
+                                                    <input formControlName="createUser" class="radio_animated" id="edo-ani24" [value]="0"
+                                                        type="radio">
+                                                    Deny
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

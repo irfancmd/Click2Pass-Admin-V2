@@ -36,7 +36,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Curriculum</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col">Action</th>
+                                    <th *ngIf="authService.currentUser?.createChapter === 1" scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,7 @@
                                     <td>{{ category.name }}</td>
                                     <td>{{ category.curriculum.name ?? "N/A" }}</td>
                                     <td>{{ category.description ?? "N/A" }}</td>
-                                    <td>
+                                    <td *ngIf="authService.currentUser?.createChapter === 1">
                                         <button class="btn btn-warning m-1" (click)="onClickEdit(category.id)">
                                             Edit
                                         </button>

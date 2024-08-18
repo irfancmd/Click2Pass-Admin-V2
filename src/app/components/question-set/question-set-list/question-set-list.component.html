@@ -12,7 +12,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">SL</th>
-                                    <th scope="col">Action</th>
+                                    <th *ngIf="authService.currentUser?.createQuestionSet === 1" scope="col">Action</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Curriculum</th>
                                     <th scope="col">Description</th>
@@ -22,7 +22,7 @@
                             <tbody>
                                 <tr *ngFor="let questionSet of questionSets; index as i">
                                     <td>{{ i + 1 }}</td>
-                                    <td>
+                                    <td *ngIf="authService.currentUser?.createQuestionSet === 1">
                                         <button class="btn btn-warning m-1" (click)="onClickEdit(questionSet.id)">
                                             Edit
                                         </button>

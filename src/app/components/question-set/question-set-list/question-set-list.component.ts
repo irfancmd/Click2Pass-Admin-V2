@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { QuestionSetService } from 'src/app/shared/service/question-set.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class QuestionSetListComponent implements OnInit {
 
   constructor(
     private questionSetService: QuestionSetService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {

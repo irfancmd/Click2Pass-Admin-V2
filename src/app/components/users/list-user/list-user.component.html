@@ -5,7 +5,7 @@
             <h5>User Details</h5>
         </div>
         <div class="card-body">
-            <div class="btn-popup pull-right">
+            <div *ngIf="authService.currentUser?.createUser === 1" class="btn-popup pull-right">
                 <a class="btn btn-primary" [routerLink]="'/users/create-user'">Create User</a>
             </div>
             <div id="batchDelete" class="category-table custom-datatable transcation-datatable user-image">

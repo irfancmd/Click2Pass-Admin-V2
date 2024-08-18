@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/service/auth.service';
 import { ChapterService } from 'src/app/shared/service/chapter.service';
 import { CurriculumService } from 'src/app/shared/service/curriculum.service';
 
@@ -23,7 +24,8 @@ export class ChapterListComponent implements OnInit {
   constructor(
     private router: Router,
     private chapterService: ChapterService,
-    private curriculumService: CurriculumService
+    private curriculumService: CurriculumService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
