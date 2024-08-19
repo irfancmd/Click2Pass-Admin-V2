@@ -24,7 +24,22 @@ export class AuthService {
     return this.httpClient.get<CommonResponseDto>(`${this.API_ENDPOINT}`);
   }
 
+  getUserById(userId: number): Observable<CommonResponseDto> {
+    return this.httpClient.get<CommonResponseDto>(`${this.API_ENDPOINT}/${userId}`);
+  }
+
   registerUser(userInfo: any): Observable<CommonResponseDto> {
     return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}`, userInfo);
+  }
+
+  updateUser(userId: number, user: any): Observable<CommonResponseDto> {
+    return this.httpClient.patch<CommonResponseDto>(
+      `${this.API_ENDPOINT}/${userId}`,
+      user
+    );
+  }
+
+  removeUser(userId): Observable<CommonResponseDto> {
+    return this.httpClient.delete<CommonResponseDto>(`${this.API_ENDPOINT}/${userId}`);
   }
 }

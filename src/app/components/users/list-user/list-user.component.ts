@@ -19,33 +19,50 @@ export class ListUserComponent implements OnInit {
   // public searchText;
   // total$: Observable<number>;
 
-  constructor(public service: TableService, public authService: AuthService) {
+  // Dependency: public service: TableService, 
+  constructor(public authService: AuthService) {
     // this.tableItem$ = service.tableItem$;
     // this.total$ = service.total$;
     // this.service.setUserData(USERLISTDB)
   }
 
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+  // @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  onSort({ column, direction }: SortEvent) {
-    // resetting other headers
-    this.headers.forEach((header) => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
+  // onSort({ column, direction }: SortEvent) {
+  //   // resetting other headers
+  //   this.headers.forEach((header) => {
+  //     if (header.sortable !== column) {
+  //       header.direction = '';
+  //     }
+  //   });
 
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
-  }
+  //   this.service.sortColumn = column;
+  //   this.service.sortDirection = direction;
+  // }
 
   ngOnInit() {
     this.authService.getUsers().subscribe(res => {
-      if(res.data) {
+      if (res.data) {
         this.user_list = res.data;
       }
     })
   }
 
+  onDelete(id: number) {
+    this.authService.removeUser(id).subscribe((res) => {
+      if (res.status == 0) {
+        this.user_list = this.user_list.filter((e) => e.id != id);
+      }
+    });
+  }
+
+  onClickDelete(id: number) {
+    this.onDelete(id);
+    // this.dialogService.open(DeleteModalComponent, {
+    //   context: {
+    //     onDeleteFunction: this.onDelete(id),
+    //   },
+    // });
+  }
 }
 

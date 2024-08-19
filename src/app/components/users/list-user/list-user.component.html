@@ -14,12 +14,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">SL</th>
-                                <!-- <th scope="col" >Actions</th>
-                                <th scope="col" sortable="avatar" (sort)="onSort($event)">Avtar</th> -->
+                                <th *ngIf="authService.currentUser?.createUser === 1" scope="col">Actions</th>
+                                <!-- <th scope="col" sortable="avatar" (sort)="onSort($event)">Avtar</th> -->
                                 <!-- <th scope="col" sortable="fName" (sort)="onSort($event)">First Name</th>
                                 <th scope="col" sortable="lName" (sort)="onSort($event)">Last Name</th> -->
-                                <th scope="col" sortable="lName" (sort)="onSort($event)">Name</th>
-                                <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+                                <th scope="col" sortable="lName">Name</th>
+                                <th scope="col" sortable="email">Email</th>
                                 <!-- <th scope="col" sortable="last_login" (sort)="onSort($event)">Last Login</th> -->
                                 <!-- <th scope="col" sortable="role" (sort)="onSort($event)">Role</th> -->
                             </tr>
@@ -43,11 +43,23 @@
                             </tr> -->
                             <tr *ngFor="let user of user_list; index as i">
                                 <td>{{ i }}</td>
+                                <td *ngIf="authService.currentUser?.createUser === 1" >
+                                    <!-- <a [routerLink]="['/users/edit-user', user.id]"><i
+                                            class='fa fa-edit f-12'></i></a>&nbsp;
+                                    <a (click)="onClickDelete(user.id)"><i class="fa fa-trash-o"></i></a> -->
+                                        <button class="btn btn-warning m-1" [routerLink]="['/users/edit-user', user.id]">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-primary m-1" (click)="onClickDelete(user.id)">
+                                            Delete
+                                        </button>
+                                </td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table>
                     <!-- <div class="d-flex justify-content-center p-2">
                         <ngb-pagination
                           [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
