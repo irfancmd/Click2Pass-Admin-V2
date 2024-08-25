@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/service/auth.service';
-import { ChapterService } from 'src/app/shared/service/chapter.service';
-import { CurriculumService } from 'src/app/shared/service/curriculum.service';
-import { QuestionService } from 'src/app/shared/service/question.service';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/shared/service/auth.service";
+import { ChapterService } from "src/app/shared/service/chapter.service";
+import { CurriculumService } from "src/app/shared/service/curriculum.service";
+import { QuestionService } from "src/app/shared/service/question.service";
 
 @Component({
-  selector: 'app-question-list',
-  templateUrl: './question-list.component.html',
-  styleUrls: ['./question-list.component.scss']
+  selector: "app-question-list",
+  templateUrl: "./question-list.component.html",
+  styleUrls: ["./question-list.component.scss"],
 })
 export class QuestionListComponent implements OnInit {
   public IMG_ROOT = "https://click2pass.ca/uploads/";
@@ -35,7 +35,7 @@ export class QuestionListComponent implements OnInit {
     private chapterService: ChapterService,
     private curriculumService: CurriculumService,
     public authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.curriculumService.getCurriculums().subscribe((data: any) => {
@@ -122,11 +122,9 @@ export class QuestionListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    return () => {
-      this.questionService.remove(id).subscribe(() => {
-        this.questions = this.questions.filter((e) => e.id != id);
-      });
-    };
+    this.questionService.remove(id).subscribe(() => {
+      this.questions = this.questions.filter((e) => e.id != id);
+    });
   }
 
   onClickDelete(id: number) {

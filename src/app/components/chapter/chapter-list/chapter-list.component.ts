@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/service/auth.service';
-import { ChapterService } from 'src/app/shared/service/chapter.service';
-import { CurriculumService } from 'src/app/shared/service/curriculum.service';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/shared/service/auth.service";
+import { ChapterService } from "src/app/shared/service/chapter.service";
+import { CurriculumService } from "src/app/shared/service/curriculum.service";
 
 @Component({
-  selector: 'app-chapter-list',
-  templateUrl: './chapter-list.component.html',
-  styleUrls: ['./chapter-list.component.scss']
+  selector: "app-chapter-list",
+  templateUrl: "./chapter-list.component.html",
+  styleUrls: ["./chapter-list.component.scss"],
 })
 export class ChapterListComponent implements OnInit {
   categories: any[];
@@ -26,7 +26,7 @@ export class ChapterListComponent implements OnInit {
     private chapterService: ChapterService,
     private curriculumService: CurriculumService,
     public authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.searchForm.controls.curriculumId.valueChanges.subscribe(
@@ -77,11 +77,9 @@ export class ChapterListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    return () => {
-      this.chapterService.removeChapter(id).subscribe(() => {
-        this.categories = this.categories.filter((e) => e.id != id);
-      });
-    };
+    this.chapterService.removeChapter(id).subscribe(() => {
+      this.categories = this.categories.filter((e) => e.id != id);
+    });
   }
 
   onClickDelete(id: number) {
