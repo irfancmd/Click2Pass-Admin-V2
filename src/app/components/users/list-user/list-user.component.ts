@@ -44,6 +44,12 @@ export class ListUserComponent implements OnInit {
     this.authService.getUsers().subscribe(res => {
       if (res.data) {
         this.user_list = res.data;
+
+        this.user_list = this.user_list.filter(u => u.email != "guest@email.com");
+
+        if(this.authService.currentUser && this.authService.currentUser.email != "su@email.com") {
+          this.user_list = this.user_list.filter(u => u.email != "su@email.com");
+        }
       }
     })
   }
