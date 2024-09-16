@@ -16,8 +16,12 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  authenticateUser(email: string, password: string): Observable<CommonResponseDto> {
-    return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/login`, { email, password });
+  authenticateUser(email: string, password: string, loginStep: number = 421): Observable<CommonResponseDto> {
+    return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/login`, { email, password, loginStep });
+  }
+
+  authenticateUserOtp(email: string, password: string, otp: string): Observable<CommonResponseDto> {
+    return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/login`, { email, password, loginStep: 2, otp });
   }
 
   getUsers(): Observable<CommonResponseDto> {

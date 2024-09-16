@@ -34,7 +34,8 @@ export class CreateUserComponent implements OnInit {
       createQuestionSet: [0],
       readQuestionSet: [0],
       createUser: [0],
-      readUser: [0]
+      readUser: [0],
+      loginOtpRequired: [0],
     })
   }
 

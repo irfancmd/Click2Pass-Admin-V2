@@ -40,7 +40,8 @@ export class EditUserComponent implements OnInit {
       createQuestionSet: [0],
       readQuestionSet: [0],
       createUser: [0],
-      readUser: [0]
+      readUser: [0],
+      loginOtpRequired: [0],
     })
   }
 
@@ -64,6 +65,7 @@ export class EditUserComponent implements OnInit {
           this.accountForm.controls.readQuestionSet.setValue(this.userToBeUpdated?.readQuestionSet ?? 0);
           this.accountForm.controls.createUser.setValue(this.userToBeUpdated?.createUser ?? 0);
           this.accountForm.controls.readUser.setValue(this.userToBeUpdated?.readUser ?? 0);
+          this.accountForm.controls.loginOtpRequired.setValue(this.userToBeUpdated?.loginOtpRequired ?? 0);
         }
       });
     }

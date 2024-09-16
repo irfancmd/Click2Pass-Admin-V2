@@ -13,8 +13,13 @@ import { NavService } from 'src/app/shared/service/nav.service';
 export class LoginComponent implements OnInit {
 
   public loginForm: UntypedFormGroup;
+  public otpForm: UntypedFormGroup;
   public registerForm: UntypedFormGroup;
   public active = 1;
+  public isOtpFormVisible: boolean = false;
+
+  public otpAwaitingEmail: string;
+  public otpAwaitingPassword: string;
 
   owlcarousel = [
     {
@@ -39,6 +44,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: UntypedFormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService, private navService: NavService) {
     this.createLoginForm();
+    this.createOtpForm();
     // this.createRegisterForm();
   }
 
@@ -46,6 +52,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
+    })
+  }
+
+  createOtpForm() {
+    this.otpForm = this.formBuilder.group({
+      otp: ['', [Validators.required]],
     })
   }
 
@@ -62,14 +74,37 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.otpAwaitingEmail = this.loginForm.controls.email.value;
+    this.otpAwaitingPassword = this.loginForm.controls.password.value;
+
     // Login
-    this.authService.authenticateUser(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+    this.authService.authenticateUser(this.loginForm.controls.email.value, this.loginForm.controls.password.value, 1)
       .subscribe(res => {
         if (res.status === 0) {
           // Success
           this.authService.currentUser = res.data;
           this.navService.populateRoleWiseMenus();
-          
+
+          this.router.navigate(["/dashboard/default"]);
+        } else if (res.status === 2) {
+          // Need OTP
+          this.isOtpFormVisible = true;
+          this.toastr.info(res.message, "Otp Required");
+        } else {
+          this.toastr.error(res.message, "Error");
+        }
+      });
+  }
+
+  onSubmitOTP() {
+    // Login
+    this.authService.authenticateUserOtp(this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.otpForm.controls.otp.value)
+      .subscribe(res => {
+        if (res.status === 0) {
+          // Success
+          this.authService.currentUser = res.data;
+          this.navService.populateRoleWiseMenus();
+
           this.router.navigate(["/dashboard/default"]);
         } else {
           this.toastr.error(res.message, "Error");
