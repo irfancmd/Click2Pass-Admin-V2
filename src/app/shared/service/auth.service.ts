@@ -24,6 +24,26 @@ export class AuthService {
     return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/login`, { email, password, loginStep: 2, otp });
   }
 
+  restPasswordStep1(email: string): Observable<CommonResponseDto> {
+    return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/reset-password`,
+      {
+        resetStep: 0,
+        email: email
+      }
+    );
+  }
+
+  restPasswordStep2(email: string, password: string, otp: string): Observable<CommonResponseDto> {
+    return this.httpClient.post<CommonResponseDto>(`${this.API_ENDPOINT}/reset-password`,
+      {
+        resetStep: 1,
+        email: email,
+        password: password,
+        otp: otp
+      }
+    );
+  }
+
   getUsers(): Observable<CommonResponseDto> {
     return this.httpClient.get<CommonResponseDto>(`${this.API_ENDPOINT}`);
   }
