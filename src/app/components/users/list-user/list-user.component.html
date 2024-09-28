@@ -9,7 +9,7 @@
         *ngIf="authService.currentUser?.createUser === 1"
         class="btn-popup pull-right"
       >
-        <a class="btn btn-primary" [routerLink]="'/users/create-user'"
+        <a class="btn btn-primary" (click)="openPasswordModal(passwordModal, 0, true)"
           >Create User</a
         >
       </div>
@@ -73,7 +73,7 @@
                       authService.currentUser?.email != user.email
                     "
                     class="btn btn-primary m-1"
-                    (click)="onClickDelete(user.id)"
+                    (click)="openPasswordModal(passwordModal, user.id)"
                   >
                     Delete
                   </button>
@@ -94,3 +94,31 @@
   </div>
 </div>
 <!-- Container-fluid Ends-->
+
+
+<!-- Password Modal -->
+ <ng-template #passwordModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Enter your password to continue</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				<label for="inp-ver-password">Password</label>
+				<div class="input-group">
+					<input
+                        #inp_vp
+						id="inp-ver-password"
+						class="form-control"
+                        placeholder="Your Password"
+                        type="password"
+					/>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="modal.close(inp_vp.value)">Proceed</button>
+	</div>
+</ng-template>

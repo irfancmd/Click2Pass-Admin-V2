@@ -152,6 +152,12 @@ export class NavService {
 					{ path: '/users/create-user', title: 'Create User', type: 'link' },
 				]
 			},
+			{
+				title: 'Settings', icon: 'settings', type: 'sub', active: false, children: [
+					{ path: '/settings', title: 'General', type: 'link' },
+				]
+			},
+
 		]
 
 	}
@@ -249,13 +255,25 @@ export class NavService {
 				},
 			);
 
-			if (this.authService.currentUser.createUser) {
-				this.MENUITEMS[mainMenuIndex].children.push(
-					{ path: '/users/create-user', title: 'Create User', type: 'link' },
-				);
-			}
+			// if (this.authService.currentUser.createUser) {
+			// 	this.MENUITEMS[mainMenuIndex].children.push(
+			// 		{ path: '/users/create-user', title: 'Create User', type: 'link' },
+			// 	);
+			// }
 
 			++mainMenuIndex;
+		}
+
+		const allowedSettingsEmails = ['mh.shiblee@gmail.com', 'click2pass@outlook.com', 'irfan.muhit85@gmail.com', 'su@email.com'];
+
+		if (allowedSettingsEmails.includes(this.authService.currentUser.email)) {
+			this.MENUITEMS.push(
+				{
+					title: 'Settings', icon: 'settings', type: 'sub', active: false, children: [
+						{ path: '/settings', title: 'General', type: 'link' },
+					]
+				},
+			);
 		}
 
 		// Array

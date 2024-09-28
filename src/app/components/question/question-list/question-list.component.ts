@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/shared/service/auth.service";
 import { ChapterService } from "src/app/shared/service/chapter.service";
 import { CurriculumService } from "src/app/shared/service/curriculum.service";
@@ -34,7 +36,9 @@ export class QuestionListComponent implements OnInit {
     private questionService: QuestionService,
     private chapterService: ChapterService,
     private curriculumService: CurriculumService,
-    public authService: AuthService
+    public authService: AuthService,
+    public modalService: NgbModal,
+    public toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -127,15 +131,6 @@ export class QuestionListComponent implements OnInit {
     });
   }
 
-  onClickDelete(id: number) {
-    this.onDelete(id);
-    // this.dialogService.open(DeleteModalComponent, {
-    //   context: {
-    //     onDeleteFunction: this.onDelete(id),
-    //   },
-    // });
-  }
-
   getQuestionType(question: any) {
     if (question) {
       switch (question.questionType) {
@@ -149,5 +144,26 @@ export class QuestionListComponent implements OnInit {
     }
 
     return "Unknown";
+  }
+
+  openPasswordModal(content: any, id: any) {
+    this.modalService
+      .open(content, { size: 'md' })
+      .result.then(
+        (result) => {
+          if (id && result && result.length > 0 && this.authService.currentUser) {
+            this.authService.authenticateUser(this.authService.currentUser.email, result).subscribe((res: any) => {
+              if (res.status === 0) {
+                this.onDelete(id);
+              } else {
+                this.toastrService.error("Invalid Password", "Error");
+              }
+            });
+          } else {
+            this.toastrService.error("Invalid Password", "Error");
+          }
+        },
+        () => { }
+      );
   }
 }

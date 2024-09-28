@@ -1,0 +1,56 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h5>Add Page</h5>
+        </div> -->
+        <div class="card-body tab2-card">
+            <form [formGroup]="settingsForm" (ngSubmit)="openPasswordModal(passwordModal)">
+                <div class="row">
+                    <div class="col-4 form-group">
+                        <label for="inp_emailPassword" class="form-label">Email Server Password</label>
+                        <input formControlName="emailPassword" id="inp_emailPassword" class="form-control" type="password"
+                            placeholder="Email Server Password" />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+
+<!-- Password Modal -->
+ <ng-template #passwordModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Enter your password to continue</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				<label for="inp-ver-password">Password</label>
+				<div class="input-group">
+					<input
+                        #inp_vp
+						id="inp-ver-password"
+						class="form-control"
+                        placeholder="Your Password"
+                        type="password"
+					/>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" (click)="modal.close(inp_vp.value)">Proceed</button>
+	</div>
+</ng-template>
