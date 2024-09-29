@@ -31,7 +31,7 @@ export class GeneralComponent implements OnInit {
   onSubmit() {
     this.settingsService.updateSettings(this.settingsForm.value).subscribe(res => {
       if (res && res.status == 0) {
-        this.toastrService.success("Settings Updated Successfully", "Error");
+        this.toastrService.success("Settings Updated Successfully", "Success");
       } else {
         this.toastrService.error("Couldn't Update Settings", "Error");
       }
